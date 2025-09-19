@@ -7,9 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/feather-icons"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
         .graffiti {
@@ -120,19 +118,16 @@
                 </div>
                 
                 <div>
-                    <label for="experience" class="block mb-2 text-sm font-medium">Rap Experience</label>
-                    <select id="experience" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
-                        <option value="beginner">Beginner (0-1 years)</option>
-                        <option value="intermediate">Intermediate (1-3 years)</option>
-                        <option value="advanced">Advanced (3+ years)</option>
-                        <option value="professional">Professional</option>
-                    </select>
+                    <label for="mpesaCode" class="block mb-2 text-sm font-medium">M-Pesa Transaction Code</label>
+                    <input type="text" id="mpesaCode" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                    <p class="mt-1 text-xs text-gray-500">Enter the transaction code from your payment</p>
                 </div>
                 
                 <div>
                     <label for="payment" class="block mb-2 text-sm font-medium">Upload M-Pesa Payment Screenshot (KES 2,000)</label>
                     <input type="file" id="payment" accept="image/*" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-orange-500 file:text-black hover:file:bg-orange-600" required>
                     <p class="mt-2 text-xs text-gray-500">Payment to: 0786 871 068 - 4RENN CYPHER</p>
+                    <p class="mt-1 text-xs text-gray-500">Example screenshot showing transaction details and code</p>
                 </div>
                 
                 <div class="flex items-start">
@@ -185,52 +180,67 @@
         updateFormCountdown();
         setInterval(updateFormCountdown, 86400000); // Update daily
         
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+        // Supabase credentials
+        const SUPABASE_URL = "https://vbgnonfedqyvmjrsynpq.supabase.co";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZiZ25vbmZlZHF5dm1qcnN5bnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgyNjk5NzIsImV4cCI6MjA3Mzg0NTk3Mn0.Cs4xuCh60ANHgAFKeKKRUdD7cDZMoYe9bHI6yfpvLwI";
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // Form submission handler
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        // Handle form submission
+        document.getElementById("signupForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Processing...';
+
+            const fullName = document.getElementById("fullname").value;
+            const stageName = document.getElementById("stagename").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value || null;
+            const mpesaCode = document.getElementById("mpesaCode").value;
+            const screenshotFile = document.getElementById("payment").files[0];
+            const termsAccepted = document.getElementById("terms").checked;
+
+            if (!screenshotFile) {
+                alert("Please upload a screenshot before submitting.");
+                return;
+            }
 
             try {
-                // Get form values
-                const participant = {
-                    fullName: document.getElementById('fullname').value,
-                    stageName: document.getElementById('stagename').value,
-                    phone: document.getElementById('phone').value,
-                    email: document.getElementById('email').value || null,
-                    experience: document.getElementById('experience').value,
-                    paymentProof: '', // You'll need to implement file upload separately
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    status: 'pending'
-                };
+                // 1. Upload screenshot to "screenshots" bucket
+                const filePath = `screenshots/${Date.now()}_${screenshotFile.name}`;
+                const { error: uploadError } = await supabaseClient.storage
+                    .from("screenshots")
+                    .upload(filePath, screenshotFile);
 
-                // Add to Firestore
-                await db.collection('participants').add(participant);
-                
-                alert('Registration submitted successfully! We\'ll contact you soon.');
+                if (uploadError) throw uploadError;
+
+                // 2. Get public URL of the screenshot
+                const { data: publicUrlData } = supabaseClient.storage
+                    .from("screenshots")
+                    .getPublicUrl(filePath);
+
+                const screenshotUrl = publicUrlData.publicUrl;
+
+                // 3. Insert form data into "signups" table
+                const { error: insertError } = await supabaseClient
+                    .from("signups")
+                    .insert([
+                        { 
+                            full_name: fullName,
+                            stage_name: stageName,
+                            phone: phone,
+                            email: email,
+                            mpesa_code: mpesaCode,
+                            payment_screenshot: screenshotUrl,
+                            terms_accepted: termsAccepted
+                        }
+                    ]);
+
+                if (insertError) throw insertError;
+
+                alert("✅ Signup successful! We'll confirm your payment soon.");
                 e.target.reset();
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('Error submitting form. Please try again.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'SUBMIT REGISTRATION';
+            } catch (err) {
+                console.error("Error:", err.message);
+                alert("❌ Something went wrong. Try again.");
             }
         });
 
@@ -241,3 +251,4 @@
     </script>
 </body>
 </html>
+
