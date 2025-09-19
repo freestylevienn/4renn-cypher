@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | 4RENN CYPHER 001</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+        .graffiti {
+            font-family: 'Bungee', cursive;
+        }
+        
+        /* Background animation */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,102,0,0.05) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255,102,0,0.05) 0%, transparent 20%);
+            z-index: -1;
+            animation: float 15s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(-10px, -10px);
+            }
+        }
+        
+        /* Form container animation */
+        #signupForm {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Input focus effects */
+        input:focus, select:focus {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255,102,0,0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 4px rgba(255,102,0,0);
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="border-b border-orange-500/20 py-4 px-6 sticky top-0 bg-black/90 backdrop-blur-sm z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="graffiti text-2xl text-orange-500 neon-orange">4RENN CYPHER 001</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="index.html" class="hover:text-orange-500 transition">Home</a>
+                <a href="index.html#about" class="hover:text-orange-500 transition">About</a>
+                <a href="index.html#events" class="hover:text-orange-500 transition">Events</a>
+                <a href="index.html#contact" class="hover:text-orange-500 transition">Contact</a>
+                <a href="signup.html" class="bg-orange-500 hover:bg-orange-600 text-black px-4 py-2 rounded-full font-bold transition">Sign Up</a>
+            </div>
+            <button class="md:hidden">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Sign Up Form -->
+    <section class="py-20 px-6 relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-orange-500/5 blur-3xl animate-pulse"></div>
+        <div class="absolute -bottom-20 -right-20 w-60 h-60 rounded-full bg-orange-500/5 blur-3xl animate-pulse animation-delay-2000"></div>
+        <div class="max-w-2xl mx-auto bg-gray-900/50 p-8 md:p-12 rounded-xl border border-orange-500/30">
+            <h1 class="graffiti text-3xl md:text-5xl mb-2 text-orange-500 text-center">REGISTER NOW</h1>
+            <p class="text-center text-gray-400 mb-10">Fill out the form below to secure your spot in 4RENN CYPHER 001</p>
+            
+            <form id="signupForm" class="space-y-6">
+                <div>
+                    <label for="fullname" class="block mb-2 text-sm font-medium">Full Name</label>
+                    <input type="text" id="fullname" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                </div>
+                
+                <div>
+                    <label for="stagename" class="block mb-2 text-sm font-medium">Stage Name</label>
+                    <input type="text" id="stagename" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                </div>
+                
+                <div>
+                    <label for="phone" class="block mb-2 text-sm font-medium">Phone (WhatsApp)</label>
+                    <input type="tel" id="phone" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500" required>
+                </div>
+                
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium">Email (Optional)</label>
+                    <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                </div>
+                
+                <div>
+                    <label for="experience" class="block mb-2 text-sm font-medium">Rap Experience</label>
+                    <select id="experience" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                        <option value="beginner">Beginner (0-1 years)</option>
+                        <option value="intermediate">Intermediate (1-3 years)</option>
+                        <option value="advanced">Advanced (3+ years)</option>
+                        <option value="professional">Professional</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="payment" class="block mb-2 text-sm font-medium">Upload M-Pesa Payment Screenshot (KES 2,000)</label>
+                    <input type="file" id="payment" accept="image/*" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-orange-500 file:text-black hover:file:bg-orange-600" required>
+                    <p class="mt-2 text-xs text-gray-500">Payment to: 0786 871 068 - 4RENN CYPHER</p>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" class="w-4 h-4 bg-gray-800 border-gray-700 rounded focus:ring-orange-500" required>
+                    </div>
+                    <label for="terms" class="ml-3 text-sm">
+                        I confirm payment of KES 2,000 registration fee and agree to the <a href="#" class="text-orange-500 hover:underline">terms and conditions</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-black font-bold py-4 px-6 rounded-full transition">
+                    SUBMIT REGISTRATION
+                </button>
+            </form>
+            
+            <div class="mt-8 text-center text-sm text-gray-500">
+                <p>Only 3 slots remaining! Registration closes in <span id="form-countdown" class="text-orange-500">14 days</span></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-orange-500/10">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="graffiti text-xl text-orange-500 mb-4 md:mb-0">4RENN CYPHER</div>
+            <div class="text-gray-500 text-sm">
+                &copy; 2023 Karatina University Rap Society. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form countdown
+        const formCountdownDate = new Date();
+        formCountdownDate.setDate(formCountdownDate.getDate() + 14); // 14 days from now
+        
+        function updateFormCountdown() {
+            const now = new Date().getTime();
+            const distance = formCountdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("form-countdown").innerHTML = `${days} days`;
+            
+            if (distance < 0) {
+                document.getElementById("form-countdown").innerHTML = "REGISTRATION CLOSED";
+            }
+        }
+        
+        updateFormCountdown();
+        setInterval(updateFormCountdown, 86400000); // Update daily
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Form submission handler
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+
+            try {
+                // Get form values
+                const participant = {
+                    fullName: document.getElementById('fullname').value,
+                    stageName: document.getElementById('stagename').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value || null,
+                    experience: document.getElementById('experience').value,
+                    paymentProof: '', // You'll need to implement file upload separately
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: 'pending'
+                };
+
+                // Add to Firestore
+                await db.collection('participants').add(participant);
+                
+                alert('Registration submitted successfully! We\'ll contact you soon.');
+                e.target.reset();
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('Error submitting form. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'SUBMIT REGISTRATION';
+            }
+        });
+
+        // Initialize icons
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
