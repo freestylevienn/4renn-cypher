@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4RENN CYPHER 001 | Karatina University Rap Battle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&display=swap');
+        .graffiti {
+            font-family: 'Bungee', cursive;
+        }
+        .spotlight {
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.9) 70%);
+        }
+    </style>
+</head>
+<body class="bg-black text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="border-b border-orange-500/20 py-4 px-6 sticky top-0 bg-black/90 backdrop-blur-sm z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="#" class="graffiti text-2xl text-orange-500 neon-orange">4RENN CYPHER 001</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="hover:text-orange-500 transition">Home</a>
+                <a href="#about" class="hover:text-orange-500 transition">About</a>
+                <a href="#events" class="hover:text-orange-500 transition">Events</a>
+                <a href="#contact" class="hover:text-orange-500 transition">Contact</a>
+                <a href="signup.html" class="bg-orange-500 hover:bg-orange-600 text-black px-4 py-2 rounded-full font-bold transition">Sign Up</a>
+            </div>
+            <button class="md:hidden">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden spotlight">
+        <div class="absolute inset-0 bg-[url('http://static.photos/black/1200x630/1')] bg-cover bg-center opacity-20"></div>
+        <div class="relative z-10 text-center px-4" data-aos="fade-up">
+            <h1 class="graffiti text-5xl md:text-8xl mb-6 text-orange-500 neon-orange">4RENN CYPHER 001</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">10 rappers. 1 stage. Winner takes KES 5,000.</p>
+            
+            <div class="mb-10">
+                <div class="text-3xl font-mono mb-4" id="countdown"></div>
+                <p class="text-gray-400">Registration closes in</p>
+            </div>
+            
+            <a href="signup.html" class="inline-block bg-orange-500 hover:bg-orange-600 text-black font-bold px-8 py-4 rounded-full text-lg transition">
+                SIGN UP NOW
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-gradient-to-b from-black to-gray-900">
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <h2 class="graffiti text-3xl md:text-5xl mb-10 text-orange-500 text-center">WHAT IS 4RENN CYPHER?</h2>
+            <div class="relative">
+                <div class="absolute -inset-4 bg-orange-500/10 rounded-xl blur-md"></div>
+                <div class="relative bg-black p-8 rounded-lg border border-orange-500/30">
+                    <p class="text-lg leading-relaxed">
+                        It's the first official Karatina University pre-recorded rap battle series, giving rappers a platform to shine. 
+                        Each season features 10 talented MCs battling it out in a high-energy cypher format. 
+                        The winner takes home KES 5,000 and bragging rights as the reigning champion.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 px-6 bg-black">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="graffiti text-3xl md:text-5xl mb-16 text-orange-500 text-center">4RENN CYPHER 001</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-gray-900/50 p-8 rounded-xl border border-orange-500/20" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-4 text-orange-400">Event Details</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-feather="calendar" class="mr-3 text-orange-500 mt-1"></i>
+                            <span>Date: TBA (After registration closes)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="map-pin" class="mr-3 text-orange-500 mt-1"></i>
+                            <span>Location: Karatina University (Filming Location)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="award" class="mr-3 text-orange-500 mt-1"></i>
+                            <span>Prize: KES 5,000 for the winner</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-feather="users" class="mr-3 text-orange-500 mt-1"></i>
+                            <span>Slots: <span class="text-orange-500">7/10</span> filled</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-900/50 p-8 rounded-xl border border-orange-500/20" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-4 text-orange-400">Battle Rules</h3>
+                    <ol class="list-decimal pl-5 space-y-3">
+                        <li>Each rapper gets 60 seconds to spit their best bars</li>
+                        <li>No profanity or offensive content</li>
+                        <li>Original content only - no biting!</li>
+                        <li>Judging based on flow, lyrics, delivery and crowd reaction</li>
+                        <li>Winner decided by panel of judges</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center">
+                <h3 class="text-xl mb-6">Future Cyphers Will Appear Here</h3>
+                <div class="bg-gray-900/50 p-8 rounded-xl border border-dashed border-orange-500/30 min-h-48 flex items-center justify-center">
+                    <p class="text-gray-500">Season 1 videos coming soon...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 bg-gradient-to-t from-black to-gray-900">
+        <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+            <h2 class="graffiti text-3xl md:text-5xl mb-10 text-orange-500">GET IN TOUCH</h2>
+            
+            <div class="flex justify-center space-x-6 mb-12">
+                <a href="https://wa.me/254786871068" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition">
+                    <i data-feather="message-circle" class="text-orange-500 hover:text-black"></i>
+                </a>
+                <a href="https://instagram.com/4renn_records" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition">
+                    <i data-feather="instagram" class="text-orange-500 hover:text-black"></i>
+                </a>
+                <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition">
+                    <i data-feather="youtube" class="text-orange-500 hover:text-black"></i>
+                </a>
+                <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition">
+                    <i data-feather="twitter" class="text-orange-500 hover:text-black"></i>
+                </a>
+            </div>
+            
+            <p class="text-gray-400 mb-8">Have questions? Hit us up on social media or WhatsApp</p>
+            
+            <a href="https://wa.me/254786871068" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-full transition">
+                <i data-feather="phone" class="mr-2"></i> WhatsApp Us
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-orange-500/10">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="graffiti text-xl text-orange-500 mb-4 md:mb-0">4RENN CYPHER</div>
+            <div class="text-gray-500 text-sm">
+                &copy; 2023 Karatina University Rap Society. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown timer
+        const countdownDate = new Date();
+        countdownDate.setDate(countdownDate.getDate() + 14); // 14 days from now
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown").innerHTML = "REGISTRATION CLOSED";
+            }
+        }
+        
+        updateCountdown();
+        const countdownTimer = setInterval(updateCountdown, 1000);
+        
+        // Initialize animations and icons
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
