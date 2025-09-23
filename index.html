@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>4RENN CYPHER 001 | KarU Rap Battle</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
@@ -33,7 +34,7 @@
 
         <!-- mobile burger -->
         <button id="nav-toggle" class="md:hidden p-2">
-            <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <i data-feather="menu" class="text-white"></i>
         </button>
     </div>
 
@@ -90,11 +91,11 @@
             <div class="bg-gray-900/50 p-6 sm:p-8 rounded-xl border border-orange-500/20" data-aos="fade-right">
                 <h3 class="text-xl sm:text-2xl font-bold mb-4 text-orange-400">Event Details</h3>
                 <ul class="space-y-3 text-sm sm:text-base">
-                    <li class="flex items-start"><span class="mr-3 text-orange-500">📅</span><span>Date: TBA (after registration)</span></li>
-                    <li class="flex items-start"><span class="mr-3 text-orange-500">📍</span><span>Location: Karatina University (filming)</span></li>
-                    <li class="flex items-start"><span class="mr-3 text-orange-500">🏆</span><span>Prize: KES 5,000</span></li>
-                    <li class="flex items-start"><span class="mr-3 text-orange-500">💰</span><span>Entry: KES 1,000</span></li>
-                    <li class="flex items-start"><span class="mr-3 text-orange-500">👥</span><span>Slots: <span class="text-orange-500">7/10</span> filled</span></li>
+                    <li class="flex items-start"><i data-feather="calendar" class="mr-3 text-orange-500 w-5 h-5 mt-1"></i><span>Date: TBA (after registration)</span></li>
+                    <li class="flex items-start"><i data-feather="map-pin" class="mr-3 text-orange-500 w-5 h-5 mt-1"></i><span>Location: Karatina University (filming)</span></li>
+                    <li class="flex items-start"><i data-feather="award" class="mr-3 text-orange-500 w-5 h-5 mt-1"></i><span>Prize: KES 5,000</span></li>
+                    <li class="flex items-start"><i data-feather="dollar-sign" class="mr-3 text-orange-500 w-5 h-5 mt-1"></i><span>Entry: KES 1,000</span></li>
+                    <li class="flex items-start"><i data-feather="users" class="mr-3 text-orange-500 w-5 h-5 mt-1"></i><span>Slots: <span class="text-orange-500">7/10</span> filled</span></li>
                 </ul>
             </div>
 
@@ -125,16 +126,16 @@
         <h2 class="graffiti text-3xl md:text-5xl mb-8 text-orange-500">GET IN TOUCH</h2>
 
         <div class="flex justify-center space-x-4 mb-8">
-            <a href="https://wa.me/254769174155" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><span class="sr-only">WhatsApp</span>💬</a>
-            <a href="https://instagram.com/4renn_records" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><span class="sr-only">IG</span>📸</a>
-            <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><span class="sr-only">YouTube</span>📺</a>
-            <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><span class="sr-only">Twitter</span>🐦</a>
+            <a href="https://wa.me/254769174155" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><i data-feather="message-circle" class="text-orange-500 hover:text-black"></i></a>
+            <a href="https://instagram.com/4renn_records" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><i data-feather="instagram" class="text-orange-500 hover:text-black"></i></a>
+            <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><i data-feather="youtube" class="text-orange-500 hover:text-black"></i></a>
+            <a href="#" class="bg-gray-800 hover:bg-orange-500 w-12 h-12 rounded-full flex items-center justify-center transition"><i data-feather="twitter" class="text-orange-500 hover:text-black"></i></a>
         </div>
 
         <p class="text-gray-400 mb-6">Have questions? Hit us up on social media or WhatsApp</p>
 
         <a href="https://wa.me/254769174155" class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-full transition">
-            💬 WhatsApp Us
+            <i data-feather="phone" class="mr-2"></i> WhatsApp Us
         </a>
     </div>
 </section>
@@ -162,19 +163,4 @@
         document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         if (distance < 0) {
             clearInterval(countdownTimer);
-            document.getElementById("countdown").innerHTML = "REGISTRATION CLOSED";
-        }
-    }
-    updateCountdown();
-    const countdownTimer = setInterval(updateCountdown, 1000);
-
-    // mobile nav toggle
-    document.getElementById('nav-toggle').addEventListener('click', () => {
-        document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
-
-    // AOS
-    document.addEventListener('DOMContentLoaded', () => AOS.init({ duration: 800, once: true }));
-</script>
-</body>
-</html>
+            document.getElementById("countdown").innerHTML = "REGISTRATION CLOSED
